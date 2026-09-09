@@ -20,7 +20,7 @@ type Discount float64
 // The storefront renders this next to each line in the cart.
 func LineTotal(l Line, d Discount) int {
 	gross := float64(l.UnitCents * l.Qty)
-	return int(gross * (1 - float64(d)/100))
+	return int(math.Round(gross * (1 - float64(d)/100)))
 }
 
 // CartTotal is the amount we authorise against the customer's card, in cents.
@@ -28,12 +28,10 @@ func LineTotal(l Line, d Discount) int {
 // Rounding happens once, on the exact sum, after every line has been combined.
 // The payment processor computes its expected total the same way, so the two
 // have to agree to the cent.
-//
-// TODO(pricing): this repeats the discount maths in LineTotal.
 func CartTotal(lines []Line, d Discount) int {
-	var exact float64
+	total := 0
 	for _, l := range lines {
-		exact += float64(l.UnitCents*l.Qty) * (1 - float64(d)/100)
+		total += LineTotal(l, d)
 	}
-	return int(math.Round(exact))
+	return total
 }

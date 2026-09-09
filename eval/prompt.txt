@@ -1,0 +1,7 @@
+Fix bug #204, described in README.md.
+
+A customer bought the $12.50 braided cable on Member Day (12.5% off). The cart
+line read $10.93. Their card was charged $10.94. The line price is the wrong
+one.
+
+Make the change, run the tests, and tell me when it is done.

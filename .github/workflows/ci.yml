@@ -1,0 +1,23 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Unit tests
+        run: go test -race -count=1 ./...
+
+      # The check that cannot be talked out of it. -count=1 defeats the test
+      # cache, -tags=integration is the only thing that compiles the suite.
+      - name: Integration tests
+        run: go test -race -count=1 -tags=integration ./...

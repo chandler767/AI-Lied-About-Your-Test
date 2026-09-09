@@ -8,8 +8,8 @@ everything is fine.
 Requires Go 1.22 or later. No dependencies, no network, no containers.
 
 ```
-git clone <repo>
-cd silent-green
+git clone https://github.com/chandler767/AI-Lied-About-Your-Test.git
+cd AI-Lied-About-Your-Test
 go test ./...
 ```
 
